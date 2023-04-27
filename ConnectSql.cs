@@ -22,7 +22,17 @@ namespace TestDataGridView
         public static void OpenSql()
         {
             SqlConnection sqlConnection = new SqlConnection(ConnectionBuilder());
-            sqlConnection.Open();
+            try
+            {
+                sqlConnection.Open();
+            }
+            catch (Exception ex) 
+            { 
+                if (MessageBox.Show("是否查看详情错误信息？", "数据库连接错误", MessageBoxButtons.OKCancel,MessageBoxIcon.Error) == DialogResult.OK)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }//打开数据库
         public static void CloseSql() 
         {
